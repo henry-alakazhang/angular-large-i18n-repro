@@ -1,7 +1,8 @@
 # Angular large i18n compiled component reproduction repo
 
 `src/app/lazy/lazy.component.ts` has 50 `<div>` tags inside another `<div>` tag with `i18n` on it.
-`src/app/smaller/smaller.component.ts` has 50 `<div>` tags inside an anchor tag with other directives (routerlink, ngClass, whatever)
+
+`src/app/smaller/smaller.component.ts` has 50 `<div>` tags inside an anchor tag with other directives (routerlink, ngClass, whatever), and has `i18n` tags on the individual divs
 
 To reproduce: `yarn build --configuration production`.
 
