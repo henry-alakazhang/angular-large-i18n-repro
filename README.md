@@ -1,27 +1,22 @@
-# LargeWithI18n
+# Angular large i18n compiled component reproduction repo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+`src/app/lazy/lazy.component.ts` has 50 `<div>` tags inside another `<div>` tag with `i18n` on it.
+`src/app/smaller/smaller.component.ts` has 50 `<div>` tags inside an anchor tag with other directives (routerlink, ngClass, whatever)
 
-## Development server
+To reproduce: `yarn build --configuration production`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The `lazy` module is 20x larger than the `smaller` module despite containing the same amount of code.
 
-## Code scaffolding
+```
+Initial Chunk Files                            | Names                  |      Size
+main.517b66fda9398afe0f03.js                   | main                   | 218.63 kB
+polyfills.990a72e8631c4173d4d7.js              | polyfills              |  36.04 kB
+runtime.cda1d6b363306b7b2332.js                | runtime                |   2.35 kB
+styles.b9d695c2ef77dfe48e79.css                | styles                 |   0 bytes
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+                                               | Initial Total          | 257.02 kB
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Lazy Chunk Files                               | Names                  |      Size
+lazy-lazy-module.3bf7c504ce8655f8c5ff.js       | lazy-lazy-module       |  87.53 kB
+smaller-smaller-module.ef69ff53a5453ee39ea4.js | smaller-smaller-module |   4.28 kB
+```
